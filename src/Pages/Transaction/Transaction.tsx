@@ -1,7 +1,9 @@
+import TopBar from "../../Component/TopBar";
+
 const Transaction = () => {
   return (
     <>
-      <h1> Transaction History</h1>
+      <TopBar />
     </>
   );
 };

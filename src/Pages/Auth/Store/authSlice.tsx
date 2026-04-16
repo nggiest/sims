@@ -3,10 +3,9 @@ import {
   createAsyncThunk,
   type PayloadAction,
 } from "@reduxjs/toolkit";
-import loginService from "../Services/loginService";
-import registrationService from "../Services/registrationService";
+import loginService from "../../../Services/loginService";
+import registrationService from "../../../Services/registrationService";
 import isAuthenticated from "../../../Utils/isAuthenticated";
-import { useNavigate } from "react-router-dom";
 
 interface User {
   id: string;
