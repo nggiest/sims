@@ -6,6 +6,14 @@ export type Balance = {
   balance: number;
 };
 
+export type Hystory = {
+  invoice_number: string;
+  transaction_type: string;
+  description: string;
+  total_amount: number;
+  created_on: string;
+};
+
 const transactionService = {
   getBalance: async (request: RequestFn) => {
     return request<{ data: Balance }>({
@@ -38,7 +46,8 @@ const transactionService = {
     params: { offset: number; limit: number },
   ) => {
     return request({
-      url: `/transactions?offset=${params.offset}&limit=${params.limit}`,
+      url: `/transaction/history?offset=${params.offset}&limit=${params.limit}`,
+      method: "GET",
     });
   },
 };

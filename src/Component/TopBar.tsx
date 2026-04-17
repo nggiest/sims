@@ -2,8 +2,9 @@ import { useEffect, useState, useCallback } from "react";
 import imageStandar from "../assets/Profile Photo.png";
 import { EyeIcon } from "@heroicons/react/16/solid";
 import { EyeSlashIcon } from "@heroicons/react/24/outline";
-import profileService from "../Services/profileService";
+import profileService, { type Profile } from "../Services/profileService";
 import useApi from "../Hooks/useApi";
+import transactionService from "../Services/transactionService";
 
 const TopBar = () => {
   const { request } = useApi();
@@ -29,9 +30,23 @@ const TopBar = () => {
     }
   }, [request]);
 
+  const fetchBalance = async () => {
+    try {
+      const res = await transactionService.getBalance(request);
+
+      setBalance(res?.data?.balance ?? 0);
+    } catch (err) {
+      console.error("Gagal ambil saldo:", err);
+    }
+  };
+
   useEffect(() => {
     fetchProfile();
   }, [fetchProfile]);
+
+  useEffect(() => {
+    fetchBalance();
+  }, [fetchBalance]);
 
   if (error) {
     return <div className="p-8 text-red-500">Error: {error}</div>;
