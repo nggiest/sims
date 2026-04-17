@@ -6,6 +6,7 @@ import {
 import loginService from "../../../Services/loginService";
 import registrationService from "../../../Services/registrationService";
 import isAuthenticated from "../../../Utils/isAuthenticated";
+import profileService from "../../../Services/profileService";
 
 interface User {
   id: string;
@@ -38,6 +39,18 @@ export const loginUser = createAsyncThunk(
       const result = await response.json();
       if (!response.ok) return rejectWithValue(result.message || "Login Gagal");
       return result as User;
+    } catch (err: any) {
+      return rejectWithValue(err.message);
+    }
+  },
+);
+
+export const editUser = createAsyncThunk(
+  "auth/editUser",
+  async (data: any, { rejectWithValue }) => {
+    try {
+      const result = await profileService.updateProfile(data);
+      return result.data;
     } catch (err: any) {
       return rejectWithValue(err.message);
     }
@@ -89,14 +102,11 @@ const authSlice = createSlice({
           localStorage.setItem("token_exp", expiry.toString());
           state.user = responseData;
         }
-
-        console.log("<<<<", localStorage.getItem("token"));
       })
       .addCase(loginUser.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload as string;
       })
-
       .addCase(registerUser.pending, (state) => {
         state.loading = true;
         state.error = null;
@@ -108,6 +118,20 @@ const authSlice = createSlice({
         state.user = action.payload;
       })
       .addCase(registerUser.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload as string;
+      })
+      .addCase(editUser.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+        state.successMessage = null;
+      })
+      .addCase(editUser.fulfilled, (state, action: PayloadAction<User>) => {
+        state.loading = false;
+        state.successMessage = "Akun berhasil dibuat!";
+        state.user = action.payload;
+      })
+      .addCase(editUser.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload as string;
       });

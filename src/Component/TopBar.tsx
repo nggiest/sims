@@ -58,7 +58,7 @@ const TopBar = () => {
         <div className="flex flex-col items-start text-center px-6.5">
           <div className="w-24 h-24 rounded-full border border-gray-400 mb-4 flex items-center justify-center overflow-hidden">
             <img
-              src={profile?.profil_image ?? imageStandar}
+              src={profile?.profile_image ?? imageStandar}
               className="w-full h-full object-cover"
             />
           </div>

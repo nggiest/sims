@@ -17,14 +17,14 @@ export type Banner = {
 
 const informationService = {
   getService: async (request: RequestFn) => {
-    return request<{ data: Service }>({
+    return request({
       url: "/services",
       method: "GET",
     });
   },
 
   getBanner: async (request: RequestFn) => {
-    return request<{ data: Service }>({
+    return request({
       url: "/banner",
       method: "GET",
     });

@@ -46,7 +46,6 @@ const TopUp = () => {
             <div className="text-left px-8 ">
               <div className="relative w-full px-5">
                 <div className="absolute left-3 top-1/2 -translate-y-1/2 flex items-center gap-2 text-gray-400 pointer-events-none">
-                  {/* <UserIcon className="w-5 h-5" /> */}
                   {!amount && (
                     <span className="px-6">Masukan nominal top up</span>
                   )}
