@@ -15,7 +15,6 @@ const ProfilePage = () => {
   const logout = useLogout();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [preview, setPreview] = useState<string | null>(null);
   const fetchProfile = useCallback(async () => {
     try {
       setLoading(true);
@@ -47,8 +46,6 @@ const ProfilePage = () => {
       alert("Ukuran maksimal 100KB");
       return;
     }
-    const previewUrl = URL.createObjectURL(file);
-    setPreview(previewUrl);
     try {
       const formData = new FormData();
       formData.append("file", file);

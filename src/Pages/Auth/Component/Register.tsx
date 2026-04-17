@@ -12,7 +12,7 @@ import { useNavigate } from "react-router-dom";
 const Register = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch<AppDispatch>();
-  const { loading, error } = useSelector((state: RootState) => state.auth);
+  const { loading } = useSelector((state: RootState) => state.auth);
 
   const {
     register,
