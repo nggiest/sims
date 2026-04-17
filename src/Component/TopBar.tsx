@@ -8,25 +8,18 @@ import transactionService from "../Services/transactionService";
 
 const TopBar = () => {
   const { request } = useApi();
-
   const [profile, setProfile] = useState<Profile | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
   const [isHidden, setIsHidden] = useState(false);
   const [balance, setBalance] = useState<number>(0);
 
   const fetchProfile = useCallback(async () => {
     try {
-      setLoading(true);
-      setError(null);
-
       const res = await profileService.getProfile(request);
 
       setProfile(res?.data ?? null);
-    } catch (err: any) {
-      setError(err.message || "Terjadi kesalahan");
-    } finally {
-      setLoading(false);
+    } catch (err) {
+      alert("Terjadi Kesalahan");
+      console.log(err);
     }
   }, [request]);
 
@@ -47,10 +40,6 @@ const TopBar = () => {
   useEffect(() => {
     fetchBalance();
   }, [fetchBalance]);
-
-  if (error) {
-    return <div className="p-8 text-red-500">Error: {error}</div>;
-  }
 
   return (
     <div className="min-h-30 p-8">

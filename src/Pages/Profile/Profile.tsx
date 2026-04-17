@@ -9,14 +9,13 @@ import { useForm } from "react-hook-form";
 import { editUser } from "../Auth/Store/authSlice";
 import useLogout from "../../Hooks/useLogout";
 
-const Profile = () => {
+const ProfilePage = () => {
   const [profile, setProfile] = useState<Profile | null>(null);
   const { request } = useApi();
   const logout = useLogout();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [preview, setPreview] = useState<string | null>(null);
-  const [uploading, setUploading] = useState<boolean>();
   const fetchProfile = useCallback(async () => {
     try {
       setLoading(true);
@@ -51,7 +50,6 @@ const Profile = () => {
     const previewUrl = URL.createObjectURL(file);
     setPreview(previewUrl);
     try {
-      setUploading(true);
       const formData = new FormData();
       formData.append("file", file);
       await profileService.updateProfileImage(formData);
@@ -59,8 +57,6 @@ const Profile = () => {
     } catch (err) {
       console.error(err);
       alert("Gagal upload foto");
-    } finally {
-      setUploading(false);
     }
   };
 
@@ -165,4 +161,4 @@ const Profile = () => {
   );
 };
 
-export default Profile;
+export default ProfilePage;
